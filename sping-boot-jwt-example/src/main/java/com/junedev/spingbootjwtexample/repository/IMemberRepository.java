@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface IMemberRepository {
     Optional<Member> findById(Long id);
+    Optional<Member> findByEmail(String email);
     Member save(Member member);
     boolean deleteById(Long id);
     List<Member> GetMembers();

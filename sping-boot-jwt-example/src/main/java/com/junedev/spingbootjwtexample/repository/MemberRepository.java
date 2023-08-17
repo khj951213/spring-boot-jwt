@@ -21,6 +21,11 @@ public class MemberRepository implements IMemberRepository {
     }
 
     @Override
+    public Optional<Member> findByEmail(String email) {
+        return memberStore.values().stream().filter(e -> e.getEmail().equals(email)).findFirst();
+    }
+
+    @Override
     public Member save(Member member) {
         var exMemeber = memberStore.values().stream().filter(e -> e.getEmail().equals(member)).findFirst();
         if (exMemeber.isPresent()) {
