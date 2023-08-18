@@ -21,11 +21,10 @@ public class AuthService {
     public Member signIn(String email, String password) {
         try {
             var member = this.memberRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found."));
-            var authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
-            var authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-            if (authentication.isAuthenticated()) {
-                var token = jwtTokenProvider.generateToken(email);
-            }
+            member.setToken(jwtTokenProvider.generateToken(email));
+
+
+            return member;
         } catch (RuntimeException e) {
             throw new RuntimeException(e.getMessage());
         }
